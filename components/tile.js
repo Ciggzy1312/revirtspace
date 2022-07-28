@@ -1,5 +1,10 @@
+import axios from "axios"
 
 export default function Tile({ task }) {
+
+    const deleteTask = async ()=>{
+        await axios.delete(`/api/tasks/${task._id}`)
+    }
 
     return (
         <div className="">
@@ -14,7 +19,7 @@ export default function Tile({ task }) {
 
                 <div className="text-white font-medium px-5 py-5">
                     <button className="bg-[#c620a7] px-12 py-1 rounded mr-10">Mark as completed</button>
-                    <button className="text-[#afafaf] hover:text-[#c620a7] px-6">Delete</button>
+                    <button className="text-[#afafaf] hover:text-[#c620a7] px-6" onClick={deleteTask}>Delete</button>
                 </div>
             </div>
         </div>
