@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Tile from '../components/tile'
 
 export default function Home() {
   return (
-    <div className="bg-[#171717]">
+    <div className="bg-[#171717] pb-20">
       
       <div className='text-center font-semibold text-white text-2xl py-8'>To-Do List</div>
 
@@ -22,7 +23,11 @@ export default function Home() {
           <div className='text-white font-medium mb-6'>Added task in to-do list</div>
         </div>
 
-        <div className=''>task cards</div>
+        <div className='grid grid-cols-3 gap-x-16'>
+          <Tile />
+          <Tile />
+          <Tile />
+        </div>
       </div>
 
     </div>
