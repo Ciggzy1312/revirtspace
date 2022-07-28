@@ -16,12 +16,13 @@ export default async function handler(req, res) {
 async function updateTask(req, res) {
 
     const { id } = req.query;
+    const { status } = req.body
 
     try {
         await connectDB;
 
         const task = await Task.findByIdAndUpdate(id, {
-            status: true
+            status
         });
 
         res.status(200).json({ data: task })
