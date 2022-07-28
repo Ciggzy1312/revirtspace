@@ -19,7 +19,7 @@ export default function Home({data}) {
   }
 
   return (
-    <div className="bg-[#171717] pb-20">
+    <div className={ tasks.length>6 ? "bg-[#171717] pb-20" : "h-screen bg-[#171717] pb-20"}>
       
       <div className='text-center font-semibold text-white text-2xl py-8'>To-Do List</div>
 
