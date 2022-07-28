@@ -1,8 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { useState } from 'react';
 import Tile from '../components/tile'
+import Task from '../models/task';
+import connectDB from '../utils/connectDB';
 
-export default function Home() {
+export default function Home({ data }) {
+
+  const [tasks, setTasks] = useState(data)
+
   return (
     <div className="bg-[#171717] pb-20">
       
@@ -23,13 +27,39 @@ export default function Home() {
           <div className='text-white font-medium mb-6'>Added task in to-do list</div>
         </div>
 
-        <div className='grid grid-cols-3 gap-x-16'>
-          <Tile />
-          <Tile />
-          <Tile />
+        <div className='grid grid-cols-3 gap-x-4 gap-y-12'>
+          {tasks.map((task, i)=>(
+            <div className='flex' key={task._id}>
+              <span className='mr-4 text-lg text-white font-medium mt-6'>{i+1}.</span>
+              <Tile task={task}/>
+            </div>
+          ))}
         </div>
       </div>
 
     </div>
   )
+}
+
+
+export async function getServerSideProps() {
+
+  try {
+    await connectDB();
+
+    const tasks = await Task.find();
+    
+    return {
+      props: {
+        data: JSON.parse(JSON.stringify(tasks)),
+      }
+    }
+  } catch (error) {
+      return {
+        props: {
+          data: error,
+        }
+      }
+  }
+
 }
