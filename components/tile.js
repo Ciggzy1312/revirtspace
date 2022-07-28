@@ -1,12 +1,13 @@
 import axios from "axios"
 import { useState } from "react"
 
-export default function Tile({ task }) {
+export default function Tile({ task, router }) {
 
     const [isCompleted, setIsCompleted] = useState(task.status)
 
     const deleteTask = async ()=>{
         await axios.delete(`/api/tasks/${task._id}`)
+        router.reload(window.location.pathname)
     }
 
     const updateTask = async (status)=>{
@@ -15,12 +16,13 @@ export default function Tile({ task }) {
         })
 
         setIsCompleted(!isCompleted)
+        router.reload(window.location.pathname)
     }
 
     return (
         <div className="">
 
-            <div className={isCompleted ? "bg-[#202020] border border-[#7ab530] rounded-md" : "bg-[#2f2f2f] rounded-md"}>
+            <div className={isCompleted ? "bg-[#202020] border border-[#7ab530] rounded-md" : "bg-[#2f2f2f] rounded-md shadow-2xl"}>
 
                 <div className="px-5 py-6">
                     <span className="text-white text-xl">{task.title}</span>

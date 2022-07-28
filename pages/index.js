@@ -1,10 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
 import Tile from '../components/tile'
 import Task from '../models/task';
 import connectDB from '../utils/connectDB';
 
 export default function Home({data}) {
+
+  const router = useRouter()
 
   const [tasks, setTasks] = useState(data)
 
@@ -15,6 +18,7 @@ export default function Home({data}) {
     await axios.post("/api/tasks", {
       title
     })
+    router.reload(window.location.pathname)
     setTitle("")
   }
 
@@ -42,7 +46,7 @@ export default function Home({data}) {
           { tasks.map((task, i)=>(
             <div className='flex' key={task._id}>
               <span className='mr-4 text-lg text-white font-medium mt-6'>{i+1}.</span>
-              <Tile task={task}/>
+              <Tile task={task} router={router}/>
             </div>
           ))}
         </div>
